@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <style>
+        button {
+            border: 0px;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100vw;
+        }
+
+        #map {
+            height: 85%;
+            width: 80vw;
+            margin: 0 auto;
+        }
+
+        .message-block {
+            width: 80vw;
+            height: 15%;
+            padding: 10px 5px;
+            margin: 0 auto;
+            background-color: rgb(159, 193, 223);
+        }
+
+        button {
+            width: 20vw;
+            height: 8vw;
+
+
+        }
+
+        button:hover {
+            background-color: #24408f;
+            /* Green */
+            color: white;
+        }
+
+        .button-container {
+            margin: 5px auto;
+            width: fit-content;
+            height: 5%;
+        }
+
+        @media screen and (min-width: 600px) {
+            body {
+                background-color: rgb(218, 218, 232);
+            }
+
+            #map {
+                height: 80%;
+                width: 90vw;
+
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="map" style="outline: solid black 1px;"></div>
+    <div class="button-container">
+        <button onclick="resetMapView()">地圖中心重置</button>
+    </div>
+
+    <div class="message-block">
+
+        <div class="find-guide">
+            <h4>
+                clue: 看完報紙喝杯豆漿
+            </h4>
+            <p>
+                這裡還有最好吃的飯糰
+            </p>
+        </div>
+
+    </div>
+
+
+    </div>
+    <script>
+        var map = L.map('map').setView([25.080284, 121.546375], 18);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+
+
+
+        var l01_p1 = [
+            [25.0794, 121.54504],
+            [25.07939, 121.54508],
+            [25.0797, 121.54506],
+            [25.07973, 121.54594],
+            [25.07972, 121.54599],
+            [25.0798, 121.5471],
+            [25.0798, 121.54712],
+            [25.07994, 121.54706],
+            [25.08008, 121.54697],
+            [25.08069, 121.54643],
+            [25.08072, 121.54642],
+            [25.08117, 121.5464],
+            [25.08185, 121.54637],
+            [25.08183, 121.54647],
+            [25.08181, 121.54655]
+        ]
+        var l02_p1 = [
+            [25.08245, 121.54702],
+            [25.08246, 121.54735],
+            [25.08254, 121.54736],
+            [25.08255, 121.54745],
+            [25.08263, 121.54742],
+            [25.08272, 121.54742]
+        ]
+
+        var mapP101 = L.marker(l01_p1[0]).addTo(map);
+        mapP101.bindPopup("<b>住家</b><br>起床出門").openPopup();
+
+        var mapP102 = L.marker(l01_p1[l01_p1.length - 1]).addTo(map);
+        mapP102.bindPopup("<b>圖書館</b><br>看報紙").openPopup();
+
+
+        var polyline1 = L.polyline(l01_p1, { color: 'red' }).addTo(map);
+
+        function resetMapView() {
+            map.setView([25.080284, 121.546375], 18);
+        }
+
+
+        function onMapClick(e) {
+            alert("經緯度座標：" + e.latlng + "");
+        }
+
+        map.on('click', onMapClick);
+
+
+    </script>
+</body>
+
+</html>
